@@ -39,24 +39,22 @@ public class Board {
     }
 
     public boolean isItEmptyCell(Cell cell) {
-        return !(isItSheepPosition(cell) || isItWolfPosition(cell));
+        return !(isItSheepCell(cell) || isItWolfCell(cell));
     }
 
-    public boolean isItSheepPosition(Cell pos) {
+    public boolean isItSheepCell(Cell pos) {
         return sheepCell.equals(pos);
     }
 
-    public boolean isItWolfPosition(Cell pos) {
-        return wolfsCells.contains(pos);
-    }
+    public boolean isItWolfCell(Cell pos) { return wolfsCells.contains(pos); }
 
     public boolean isSheepWin() {
         return sheepCell.isItSheepWinCell();
     }
 
     public boolean isWolfWin() {
-        for (Cell p : sheepCell.getAvaliableSteps(true)) {
-            if (!wolfsCells.contains(p)) return false;
+        for (Cell cell : sheepCell.getAvaliableSteps(true)) {
+            if (!wolfsCells.contains(cell)) return false;
         }
         return true;
     }
@@ -70,6 +68,6 @@ public class Board {
     }
 
     public boolean isItCorrectStep(Cell start, Cell end) {
-        return !sheepCell.equals(end) && !wolfsCells.contains(end) && start.isItCorrectStep(end, isItSheepPosition(start));
+        return isItEmptyCell(end) && start.isItCorrectStep(end, isItSheepCell(start));
     }
 }

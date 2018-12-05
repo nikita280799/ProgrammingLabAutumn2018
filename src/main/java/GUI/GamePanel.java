@@ -36,31 +36,23 @@ public class GamePanel extends JPanel {
         gameAI = new GameAI(board, level);
         if (!isHumanPlayingForSheep) gameAI.step(true);
         this.addMouseListener(new MouseListener() {
-            public void mousePressed(MouseEvent e) {
-            }
-
+            public void mousePressed(MouseEvent e) { }
             public void mouseClicked(MouseEvent e) {
                 onMouseClicked(e.getPoint());
             }
-
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            public void mouseExited(MouseEvent e) {
-            }
+            public void mouseReleased(MouseEvent e) { }
+            public void mouseEntered(MouseEvent e) { }
+            public void mouseExited(MouseEvent e) { }
         });
     }
 
     private void onMouseClicked(Point clickedPoint) {
         Cell clickedCell = new Cell(clickedPoint.x / CELL_WIDTH, clickedPoint.y / CELL_WIDTH);
-        if (!board.isItEmptyCell(clickedCell) && (board.isItSheepPosition(clickedCell) && isStepOfSheep && isHumanPlayingForSheep
-                || board.isItWolfPosition(clickedCell) && !isStepOfSheep && isHumanPlayingForWolfs)) {
+        if (!board.isItEmptyCell(clickedCell) && (board.isItSheepCell(clickedCell) && isStepOfSheep && isHumanPlayingForSheep
+                || board.isItWolfCell(clickedCell) && !isStepOfSheep && isHumanPlayingForWolfs)) {
             currentCell = clickedCell;
         }
-        if (currentCell != null && board.isItEmptyCell(clickedCell) && board.isItCorrectStep(currentCell, clickedCell)) {
+        if (currentCell != null && board.isItCorrectStep(currentCell, clickedCell)) {
             board.step(currentCell, clickedCell);
             if (isHumanPlayingForSheep && isHumanPlayingForWolfs) isStepOfSheep = !isStepOfSheep;
             currentCell = null;

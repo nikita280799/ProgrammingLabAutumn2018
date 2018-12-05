@@ -33,8 +33,8 @@ class RulesFrame extends JFrame {
 
         @Override
         public void paintComponent(Graphics g) {
-            Image back = new ImageIcon("files/backgrounds/rulesback.png").getImage();
-            g.drawImage(back, 0, 0, null);
+            Image background = new ImageIcon("files/backgrounds/rulesback.png").getImage();
+            g.drawImage(background, 0, 0, null);
         }
     }
 }

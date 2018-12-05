@@ -65,7 +65,7 @@ public class Cell {
         return (cell.i > 7 || cell.i < 0 || cell.j > 7 || cell.j < 0);
     }
 
-    public boolean isItSheepWinCell() {
+    boolean isItSheepWinCell() {
         return (i == 7);
     }
 }

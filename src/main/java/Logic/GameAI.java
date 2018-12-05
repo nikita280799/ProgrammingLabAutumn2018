@@ -18,26 +18,32 @@ public class GameAI {
         runMinMax(isItSheep, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
+    /** Возвращает оценку текущего состояния доски: от 0 до 100. При этом, чем ближе оценка к 0, тем лучше
+     * текущее положение для овцы, чем ближе оценка к 100, тем лучше текущее положение для волков.
+     * Для нахождения оценки проводиться поиск в глубину, чтобы найти наикратчайший путь овцы к одной из
+     * победных клеток, при бездействии волков, в случае если такой путь существует функция возвращает длину
+     * данного пути. Если же такого пути нет функция возвращает значение 100 - количество клеток, до которых
+     * овца в принципе может дойти.
+      */
     public int getHeuristic() {
         Set<Cell> visitedCells = new HashSet<>();
         Set<Cell> candidates = new HashSet<>();
         visitedCells.add(board.sheepCell);
         candidates.add(board.sheepCell);
-        int value = 0;
+        int heuristic = 0;
         while (!candidates.isEmpty()) {
-            value++;
+            heuristic++;
             Set<Cell> newCandidates = new HashSet<>();
-            candidates.forEach(p -> board.getAvaliableSteps(p, true).forEach(p1 -> {
-                if (!visitedCells.contains(p1)) newCandidates.add(p1);
+            candidates.forEach(cell -> board.getAvaliableSteps(cell, true).forEach(avaliableStep -> {
+                if (!visitedCells.contains(avaliableStep)) newCandidates.add(avaliableStep);
             }));
             for (Cell cell : newCandidates) {
-                 if (cell.isItSheepWinCell()) return value;
+                 if (cell.isItSheepWinCell()) return heuristic;
             }
             visitedCells.addAll(newCandidates);
             candidates = new HashSet<>(newCandidates);
         }
-        if (visitedCells.size() > 4) return 100 - visitedCells.size();
-        return 100;
+        return 100 - visitedCells.size();
     }
 
     public int runMinMax(boolean isItSheep, int recursiveLevel, int alpha, int beta) {
