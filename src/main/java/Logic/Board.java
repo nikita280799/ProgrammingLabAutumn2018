@@ -42,11 +42,11 @@ public class Board {
         return !(isItSheepCell(cell) || isItWolfCell(cell));
     }
 
-    public boolean isItSheepCell(Cell pos) {
-        return sheepCell.equals(pos);
+    public boolean isItSheepCell(Cell cell) {
+        return sheepCell.equals(cell);
     }
 
-    public boolean isItWolfCell(Cell pos) { return wolfsCells.contains(pos); }
+    public boolean isItWolfCell(Cell cell) { return wolfsCells.contains(cell); }
 
     public boolean isSheepWin() {
         return sheepCell.isItSheepWinCell();

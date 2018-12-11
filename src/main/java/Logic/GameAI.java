@@ -14,8 +14,8 @@ public class GameAI {
         this.level = level;
     }
 
-    public void step(boolean isItSheep) {
-        runMinMax(isItSheep, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    public void step(boolean isItStepOfSheepSheep) {
+        runMinMax(isItStepOfSheepSheep, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     /** Возвращает оценку текущего состояния доски: от 0 до 100. При этом, чем ближе оценка к 0, тем лучше
