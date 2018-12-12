@@ -157,7 +157,7 @@ public class GameTest {
     }
 
     @Test
-    public void aIStepTest() {
+    public void aIStepTestInSomeGeneralSituations() {
         Board board = new Board();
         GameAI gameAI = new GameAI(board, 3);
         board.clear();
@@ -192,5 +192,49 @@ public class GameTest {
         board.setWolf(new Cell(5, 3));
         gameAI.step(false);
         assertTrue(board.isItWolfCell(new Cell(4, 2)));
+    }
+
+    @Test
+    public void aIStepTestInSituationsWhenSheepCanWin() {
+        Board board = new Board();
+        GameAI gameAI = new GameAI(board, 1);
+        board.clear();
+        board.setSheep(new Cell(6, 3));
+        board.setWolf(new Cell(7, 2));
+        board.setWolf(new Cell(4, 3));
+        board.setWolf(new Cell(6, 5));
+        board.setWolf(new Cell(3, 6));
+        gameAI.step(true);
+        assertTrue(board.isSheepWin());
+        board.clear();
+        board.setSheep(new Cell(6, 7));
+        board.setWolf(new Cell(6, 5));
+        board.setWolf(new Cell(1, 2));
+        board.setWolf(new Cell(5, 3));
+        board.setWolf(new Cell(4, 5));
+        gameAI.step(true);
+        assertTrue(board.isSheepWin());
+    }
+
+    @Test
+    public void aIStepTestInSituationsWhenWolfsCanWin() {
+        Board board = new Board();
+        GameAI gameAI = new GameAI(board, 1);
+        board.clear();
+        board.setSheep(new Cell(3, 4));
+        board.setWolf(new Cell(4, 3));
+        board.setWolf(new Cell(2, 3));
+        board.setWolf(new Cell(4, 5));
+        board.setWolf(new Cell(3, 6));
+        gameAI.step(false);
+        assertTrue(board.isWolfWin());
+        board.clear();
+        board.setSheep(new Cell(2, 7));
+        board.setWolf(new Cell(1, 6));
+        board.setWolf(new Cell(3, 2));
+        board.setWolf(new Cell(4, 3));
+        board.setWolf(new Cell(4, 7));
+        gameAI.step(false);
+        assertTrue(board.isWolfWin());
     }
 }

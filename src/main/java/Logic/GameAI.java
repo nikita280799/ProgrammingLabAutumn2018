@@ -31,6 +31,7 @@ public class GameAI {
         visitedCells.add(board.sheepCell);
         candidates.add(board.sheepCell);
         int heuristic = 0;
+        if (board.sheepCell.isItSheepWinCell()) return heuristic;
         while (!candidates.isEmpty()) {
             heuristic++;
             Set<Cell> newCandidates = new HashSet<>();
